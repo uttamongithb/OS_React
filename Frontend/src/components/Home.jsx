@@ -1,15 +1,9 @@
 import React from 'react'
 
-function abc() {
+const Home = () => {
   return (
-    <>
-    <div>
-        <div>
-            
-        </div>
-    </div>
-    </>
+    <div>Home</div>
   )
 }
 
-export default abc
+export default Home
