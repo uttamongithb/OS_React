@@ -1,12 +1,13 @@
-import React from 'react'
-
+import { useState } from "react"
 function Navbar() {
+  const [date, setDate]=useState(new Date())
+  console.log(date);
+  
   return (
     <>
-    <div>
-        <div>
-            Navbar
-        </div>
+    <div style={{backgroundColor:"black", }}>
+      {date}
+        
     </div>
     </>
   )
