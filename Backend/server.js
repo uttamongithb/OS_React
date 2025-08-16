@@ -1,7 +1,8 @@
 import express from 'express'
 import connectDb from './db.js';
 import 'dotenv/config'
-import mongoose, { model } from 'mongoose';
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt'
 
 connectDb();
 const app = express();
@@ -34,12 +35,18 @@ app.get('/', (req, res) => {
 app.post('/user/register', async (req, res) => {
     try {
         const userData = req.body;
+
+        const salt = await bcrypt.genSalt(10);  
+        userData.password = await bcrypt.hash(userData.password, salt);
+
+
         const newData = new registerUsers(userData);
-        const data = await newData.save();
+
+        await newData.save();
+        
         res.status(201).json({
             message:"User Created Successfully"
         })
-        console.log(data);
     } catch (error) {
         res.status(500).json({
             message:"server error"
@@ -47,9 +54,9 @@ app.post('/user/register', async (req, res) => {
     }
 })
 
-app.get('/user/login',async(req,res)=>{
+app.post('/user/login',async(req,res)=>{
     try {
-        const {email} = req.body;
+        const {email,password} = req.body;
         const loginAuth = await registerUsers.findOne({email});
         
         if(!loginAuth){
@@ -58,9 +65,15 @@ app.get('/user/login',async(req,res)=>{
             })
         }
         
+        const isMatch = await bcrypt.compare(password, loginAuth.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid Email or Password" });
+        }
+
         res.status(200).json({
             message:"User Found"
         })
+        
     } catch (error) {
         res.status(500).json({
             message:"server error"
