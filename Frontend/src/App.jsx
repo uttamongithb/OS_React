@@ -1,14 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Home from './components/Home'
+import Navbar from './components/navbar'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
     <>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum expedita nisi quaerat cum tenetur exercitationem? Aperiam voluptas ipsum in hic, reiciendis quasi beatae a, qui id culpa animi ex facilis.</p>
+      <Home />
+      <Navbar />  
     </>
   )
 }
