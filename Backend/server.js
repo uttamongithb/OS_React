@@ -3,15 +3,18 @@ import connectDb from './db.js';
 import 'dotenv/config'
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
+import cors from 'cors'
 
 connectDb();
 const app = express();
+
+app.use(cors())
 app.use(express.json())
 
 
 const port = 3000;
 
-const registerUserSchama = new mongoose.Schema({
+const signupUserSchama = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -26,13 +29,13 @@ const registerUserSchama = new mongoose.Schema({
     }
 })
 
-const registerUsers = mongoose.model('registerUsers', registerUserSchama);
+const signupUsers = mongoose.model('signupUsers', signupUserSchama);
 
 app.get('/', (req, res) => {
     res.send("Hello");
 })
 
-app.post('/user/register', async (req, res) => {
+app.post('/user/signup', async (req, res) => {
     try {
         const userData = req.body;
 
@@ -40,7 +43,7 @@ app.post('/user/register', async (req, res) => {
         userData.password = await bcrypt.hash(userData.password, salt);
 
 
-        const newData = new registerUsers(userData);
+        const newData = new signupUsers(userData);
 
         await newData.save();
         
@@ -57,7 +60,7 @@ app.post('/user/register', async (req, res) => {
 app.post('/user/login',async(req,res)=>{
     try {
         const {email,password} = req.body;
-        const loginAuth = await registerUsers.findOne({email});
+        const loginAuth = await signupUsers.findOne({email});
         
         if(!loginAuth){
             return res.status(404).json({
