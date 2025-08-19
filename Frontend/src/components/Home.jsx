@@ -1,24 +1,8 @@
-<<<<<<< HEAD
-import Login from "./components/Login"
-import Signup from "./components/Signup"
-import Home from "./components/Home"
-
-
-function App() {
-  return (
-    <>
-     {/* <Signup/> */}
-     {/* <Login/> */}
-     <Home/>
-    </>
-  )
-}
-=======
 import { useState, useEffect } from "react";
 import { FaWifi, FaBatteryFull, FaVolumeUp, FaFolder } from "react-icons/fa";
 import { BsCircle } from "react-icons/bs";
 
-export default function App() {
+function Home() {
   const [time, setTime] = useState("");
   const [showWifi, setShowWifi] = useState(false);
   const [showBattery, setShowBattery] = useState(false);
@@ -60,7 +44,7 @@ export default function App() {
       className="h-screen w-screen bg-cover bg-center relative"
       style={{
         backgroundImage:
-          "url('https://res.cloudinary.com/canonical/image/fetch/c_limit,f_auto,q_auto,fl_sanitize,c_fill,w_1380,h_776/https%3A%2F%2Fubuntu.com%2Fwp-content%2Fuploads%2Ff202%2Fkudu-ld.jpeg')",
+          "url('https://wallpapers.com/images/hd/kali-linux-os-dragon-japanese-9bmrmf3ea24e3uwe.jpg')",
       }}
     >
       {/*NavBar */}
@@ -70,7 +54,6 @@ export default function App() {
           <BsCircle />
           <BsCircle />
         </div>
->>>>>>> main
 
         {/* Time when click popup comes */}
         <div
@@ -195,3 +178,5 @@ export default function App() {
     </div>
   );
 }
+
+export default Home;
